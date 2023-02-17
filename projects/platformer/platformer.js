@@ -71,8 +71,8 @@ $(function () {
     createCollectable("database", 500, 500, 0 ) // in
     createCollectable("database", 500, 500, 0 ) // in
     createCollectable("database", 500, 500, 0 ) // in
-    createCollectable("database", 500, 500, 0 ) // in
-    createCollectable("database", 500, 500, 0 ) // in
+    createCollectable("steve", 500, 500, 0 ) // in
+    createCollectable("grace", 500, 500, 0 ) // in
     
     
     

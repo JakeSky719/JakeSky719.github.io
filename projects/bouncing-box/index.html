@@ -50,9 +50,11 @@
 			var box = jQuery('.box');	// reference to the HTML .box element
 			var board = jQuery('.board');	// reference to the HTML .board element
 			var boardWidth = board.width();	// the maximum X-Coordinate of the screen
-			var xbox = jQuery('.xbox') 
+			var xbox = jQuery('.xbox');
+			var boardHeight = board.height();
 			// Every 50 milliseconds, call the update Function (see below)
 			setInterval(update, 50);
+			setInterval(updato, 50);
 			
 			// Every time the box is clicked, call the handleBoxClick Function (see below)
 			box.on('click', handleBoxClick);
@@ -61,7 +63,7 @@
 			function moveBoxTo(newPositionX) {
 				box.css("left", newPositionX);
 			}
-
+			
 			// changes the text displayed on the Box
 			function changeBoxText(newText) {
 				box.text(newText);
@@ -78,7 +80,11 @@
 
 			var clicks = 0;
 		
-			var iAmSpeed = 10;
+			var iAmSpeedX = 10;
+
+			var positionY = 100;
+
+			var iAmSpeedY = 15
 
 			
 
@@ -91,16 +97,28 @@
 			*/
 			function update() {
 				moveBoxTo(positionX);
-				positionX = positionX + iAmSpeed;
+				positionX = positionX + iAmSpeedX;
 
 				
                 if (positionX > boardWidth) {
-                    iAmSpeed = -iAmSpeed;
+                    iAmSpeedX = -iAmSpeedX;
                 }
                 if (positionX < 0) {
-                    iAmSpeed = -iAmSpeed;
+                    iAmSpeedX = -iAmSpeedX;
                 }	
 				}
+				
+				function updato() {
+                positionY += iAmSpeedY;
+                box.css("top", positionY);
+               
+                if (positionY > boardHeight) {
+                    iAmSpeedY = -iAmSpeedY;
+                }
+                if (positionY < 0) {
+                    iAmSpeedY = -iAmSpeedY;
+                }
+            };
 
 				
 			
@@ -114,15 +132,16 @@
 				positionX = 0;
 				changeBoxText(points);
 				points = points + 1;
-				iAmSpeed += 3;
-
+				iAmSpeedX += 3;
+				positionY = 0;
+				iAmSpeedY += 3
 			};
 
 			function cheatBoxClick() {
 				positionX = 0;
 				changeBoxText(points);
 				points = points + 69;
-				iAmSpeed += 30;
+				iAmSpeedX += 30;
 				
 				if (points >= 9000){
  				alert("it's over 9000 game over")

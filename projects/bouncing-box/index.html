@@ -17,6 +17,16 @@
 			top: 100px;
 			left: 0px;  /* <--- Change me! */
 		}
+		.xbox {
+            width: 70px;
+            height: 70px;
+            background-color: white;
+            font-size: 300%;
+            text-align: center;
+            position: absolute;
+            top: 450px;
+            left: 100px;  /* <--- Change me! */
+        }
 		.board{
 			height: 100vh;
 		}
@@ -27,7 +37,7 @@
 <body class="board">
 	<!-- HTML for the box -->
 	<div class="box">?</div>
-
+	<div class="xbox"></div>
 	<script>
 		(function(){
 			'use strict'
@@ -40,13 +50,13 @@
 			var box = jQuery('.box');	// reference to the HTML .box element
 			var board = jQuery('.board');	// reference to the HTML .board element
 			var boardWidth = board.width();	// the maximum X-Coordinate of the screen
-
+			var xbox = jQuery('.xbox') 
 			// Every 50 milliseconds, call the update Function (see below)
 			setInterval(update, 50);
 			
 			// Every time the box is clicked, call the handleBoxClick Function (see below)
 			box.on('click', handleBoxClick);
-
+			xbox.on('click', handleBoxClick)
 			// moves the Box to a new position on the screen along the X-Axis
 			function moveBoxTo(newPositionX) {
 				box.css("left", newPositionX);
@@ -62,7 +72,16 @@
 			//////////////////////////////////////////////////////////////////
 			
 			// TODO 2 - Variable declarations 
+			var positionX = 0;
+
+			var points = 0;
+
+			var clicks = 0;
+		
+			var iAmSpeed = 10;
+
 			
+
 
 			
 			/* 
@@ -71,9 +90,20 @@
 			turn it around! 
 			*/
 			function update() {
-				moveBoxTo()
+				moveBoxTo(positionX);
+				positionX = positionX + iAmSpeed;
 
-			};
+				
+                if (positionX > boardWidth) {
+                    iAmSpeed = -iAmSpeed;
+                }
+                if (positionX < 0) {
+                    iAmSpeed = -iAmSpeed;
+                }	
+				}
+
+				
+			
 
 			/* 
 			This Function will be called each time the box is clicked. Each time it is called,
@@ -81,8 +111,10 @@
 			the left side of the screen.
 			*/
 			function handleBoxClick() {
-				
-
+				positionX = 0;
+				changeBoxText(points);
+				points = points + 1;
+				iAmSpeed += 3;
 
 			};
 		})();
